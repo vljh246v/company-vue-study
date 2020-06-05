@@ -2,7 +2,10 @@
   "actors": [
     {
       "name": "Robert John Downey Jr.",
-      "image": 
-    }
+      "image": "https://github.com/vljh246v/company-vue-study/blob/master/quiz/robert-john-downey-jr.jpg"
+    },{
+      "name": "Chris Hemsworth",
+      "image": "https://github.com/vljh246v/company-vue-study/blob/master/quiz/chris-hemsworth.jpeg"
+    },
   ]
 }
