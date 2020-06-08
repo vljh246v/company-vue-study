@@ -29,7 +29,7 @@
 
        var ChildChris = {
            template: `
-                        <div>Child Chris
+                        <div>Chris<br>
                             <img :src=chirs>
                         </div>
                     `,
@@ -37,7 +37,11 @@
        }
 
        var ChildRobert = {
-           template: '<div>Child Robert, {{ robert }}</div>',
+           template: `
+                        <div>Robert<br>
+                            <img :src=robert>
+                        </div>
+                    `,
             props:['robert']
        }
 
@@ -65,17 +69,16 @@
            router,
            created: function(){
                axios.get('https://raw.githubusercontent.com/vljh246v/company-vue-study/master/quiz/test.json')
-               .then(function(response){
-                   console.log(response)
-                   var actors = response.data;
-                   console.log(actors)
-                   JSON.parse(actors)
-                   
-               })
+               .then((response) =>{
+                   this.chirs = response.data.actors[1].image
+                   this.robert = response.data.actors[0].image
+               });
            },
-           data: {
-                chirs:'chirsdd',
-                robert:'robertdd'
+           data() {
+               return {
+                   chirs:null,
+                   robert:null
+               }
            }
        }).$mount('#app');
     </script>
