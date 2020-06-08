@@ -3,9 +3,10 @@
     {
       "name": "Robert John Downey Jr.",
       "image": "https://raw.githubusercontent.com/vljh246v/company-vue-study/master/quiz/robert-john-downey-jr.jpg"
-    },{
+    },
+    {
       "name": "Chris Hemsworth",
       "image": "https://raw.githubusercontent.com/vljh246v/company-vue-study/master/quiz/chris-hemsworth.jpeg"
-    },
+    }
   ]
 }
