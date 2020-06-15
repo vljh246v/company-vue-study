@@ -286,3 +286,16 @@ html 화면 요소를 뷰 인스턴스의 데이터와 연결, 주로 {{ }} 문�
 ## 1. 애플리케이션 컴포넌트 구조도
 
 - 재사용 성을 위해 화면 1개를 작은 역할 단위로 쪼개는 것이 유리함
+
+
+## 반응형 디자인
+```html
+<meta name="viewport" content="width-device-width, initial-sscale=1.0">
+```
+
+## 컴포넌트 관리
+- 기능별로 관리 : component/기능/컴포넌트.vue
+
+
+## 컴포넌트 호출
+import 불러올 파일 내용이 담길 객체 from '불러올 파일 위치';
