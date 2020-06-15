@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="app">
-        <router-view v-bind:chirs="chirs" v-bind:robert="robert"></router-view>
+        <router-view></router-view>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js""></script>
@@ -16,68 +16,64 @@
 
     <script>
        var Parent = {
-           template: `
-                    <div>
-                        Parent Compnent<br>
-                        <a href="#/image/chirs">chris-hemsworth</a>
-                        <a href="#/image/robert">robert-john-downey-jr</a>
-                        <router-view  v-bind:chirs="chirs" v-bind:robert="robert"></router-view>
-                    </div>
-           `,
-           props:['chirs', 'robert']
        };
 
-       var ChildChris = {
-           template: `
-                        <div>Chris<br>
-                            <img :src=chirs>
-                        </div>
-                    `,
-           props:['chirs']
-       }
-
-       var ChildRobert = {
-           template: `
-                        <div>Robert<br>
-                            <img :src=robert>
-                        </div>
-                    `,
-            props:['robert']
-       }
-
-       var routes = [
-           {
-               path: '/image',
-               component: Parent,
-               children: [
-                   {
-                       path:'chirs',
-                       component:ChildChris,
-                   },{
-                       path:'robert',
-                       component:ChildRobert,
-                   }
-               ]
-           }
-       ];
-
        var router = new VueRouter({
-           routes
+           
        });
 
        var app = new Vue({
-           router,
+            router,
            created: function(){
                axios.get('https://raw.githubusercontent.com/vljh246v/company-vue-study/master/quiz/test.json')
                .then((response) =>{
-                   this.chirs = response.data.actors[1].image
-                   this.robert = response.data.actors[0].image
-               });
+                   for(var i = 0; i<response.data.actors.length; i++){
+                       this.infos.push(response.data.actors[i]);
+                   }
+               }).finally(() => {
+                   debugger;
+                   this.makeRoutes();
+               })
            },
            data() {
                return {
-                   chirs:null,
-                   robert:null
+                   infos:[]
+               }
+           },
+           methods: {
+               makeRoutes: function(){
+                   let childrenArray = [];
+                   let aTags = '';
+                    for(var i = 0; i<this.infos.length; i++){
+
+                        let html = '<div>' + 
+                            this.infos[i].name +
+                                '<img src=' +  
+                                this.infos[i].image + 
+                                '>' + 
+                            '</div>';
+
+                        let newChildrenComponent = {
+                            template: html
+                        }
+
+                        childrenArray.push({
+                            path: this.infos[i].name.toLowerCase().split(' ').join('-').replace('.',''),
+                            component: newChildrenComponent
+                        });
+        
+                        aTags += '<a href="#/image/' + this.infos[i].name.toLowerCase().split(' ').join('-').replace('.','') + '">' + this.infos[i].name + '</a>'
+                        
+                    }
+                    let parentTempalte = '<div>Parent Compnent<br>' + aTags + '<router-view ></router-view>' + '</div>';
+                    
+                    var routes = 
+                        {
+                            path: '/image',
+                            component: {template: parentTempalte},
+                            children: childrenArray
+                        };
+                    this.$router.addRoutes([routes])
                }
            }
        }).$mount('#app');
