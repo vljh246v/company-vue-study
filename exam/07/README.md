@@ -1,18 +1,8 @@
-# 07
+# VUE 테스트
+## JEST 설치
+* 설치 목록
 
-> A Vue.js project
+npm i -D jest @vue/test-utils vue-jest jest-serializer-vue babel-jest babel-core@bridge
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+npm i -D @babel/core @babel/preset-env
+>> -D 옵션은 devDependencies 환경에만 설정한다는 뜻

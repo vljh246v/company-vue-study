@@ -6,7 +6,7 @@
         </b-row>
         <b-row>
           <b-col sm="4">
-            <StudyApartmentList v-bind:propsdata="apartments"></StudyApartmentList>
+            <StudyApartmentList v-bind:propsdata="apartments" v-on:selectApartment="selectApartment"></StudyApartmentList>
           </b-col>
           <b-col sm="8">
             <StudyApartmentInput v-on:addApartmentText="addApartmentText"></StudyApartmentInput>
@@ -14,12 +14,12 @@
         </b-row>
         <b-row>
           <b-col sm="12">
-            <StudyApartmentTextList v-bind:propsdata="apartments"></StudyApartmentTextList>
+            <StudyApartmentTextList v-bind:propsdata="apartments" v-on:deleteApartmentText="deleteApartmentText"></StudyApartmentTextList>
           </b-col>
         </b-row>
         <b-row>
           <b-col sm="12">
-            <StudyFooter></StudyFooter>
+            <StudyFooter v-on:deleteAllApartmentText="deleteAllApartmentText"></StudyFooter>
           </b-col>
         </b-row>
       </b-container>
@@ -44,6 +44,7 @@ export default {
   },
   data() {
     return {
+      selected:'',
       apartments: [
         {
           'name': '아파트1',
@@ -57,9 +58,31 @@ export default {
         }]
     }
   },
+  created() {
+  },
   methods: {
     addApartmentText(text) {
-      console.log(text)
+      for(var apartment in this.apartments){
+        if(this.apartments[apartment].name == this.selected){
+          console.log(this.apartments[apartment])
+          this.apartments[apartment].value.push(text);
+        }
+      }
+    },
+    selectApartment(name){
+      this.selected = name;
+    },
+    deleteApartmentText(name, index){
+      for(var apartment in this.apartments){
+        if(this.apartments[apartment].name == name){
+          this.apartments[apartment].value.splice(index, 1)
+        }
+      }
+    },
+    deleteAllApartmentText(){
+      for(var apartment in this.apartments){
+        this.apartments[apartment].value = [];
+      }
     }
   }
 }

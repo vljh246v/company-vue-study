@@ -4,11 +4,11 @@
       <b-card-header header-tag="header" class="p-1" role="tab">
         <b-button block v-b-toggle="'accordion-' + index" variant="info">{{apartment.name}}</b-button>
       </b-card-header>
-      <b-collapse :id="'accordion-' + index" visible accordion="my-accordion" role="tabpanel">
+      <b-collapse :id="'accordion-' + index"  accordion="my-accordion" role="tabpanel">
         <b-card-body  v-for="(text, index2) in apartment.value" :key="index2">
           <b-card-text>{{text}}</b-card-text>
           <b-button block @click="deleteApartmentText(apartment.name, index2)">삭제
-            </b-button>
+          </b-button>
         </b-card-body>
       </b-collapse>
     </b-card>
@@ -24,7 +24,7 @@
     },
     methods: {
         deleteApartmentText(apartmentName, index) {
-            console.log(apartmentName, index)
+            this.$emit('deleteApartmentText', apartmentName, index)
         }
     }
   }

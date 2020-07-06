@@ -1,18 +1,15 @@
 <template>
 
 <div>
-    <b-form-select v-model="selected">                   
-    <option v-for="(apartment, index) in propsdata"
-        :key="apartment.name"
-        :value="apartment.name"
-    >
-        {{ apartment.name }}
-    </option>
-</b-form-select>
+    <b-form-select v-model="selected"  v-on:change="getSelectedApartment">                   
+        <option v-for="(apartment, index) in options"
+            :key="apartment.name"
+            value-field="name"
+            :value="apartment.name">
+            {{ apartment.name }}
+        </option>
+    </b-form-select>
 </div>
-    <!-- <b-dropdown ref="dropdown" id="dropdown" text="선택" class="m-md-2" >
-        <b-dropdown-item v-for="(apartment, index) in propsdata" :key="apartment.name" @click="changeApartmentName(apartment.name, index)">{{ apartment.name }}</b-dropdown-item>
-    </b-dropdown> -->
 </template>
 
 <script>
@@ -22,18 +19,21 @@ export default {
         changeApartmentName(apartmentName, index) {
             console.log(apartmentName, index)
             this.$refs.dropdown.text = apartmentName;
+        },
+        getSelectedApartment() {
+            this.$emit('selectApartment', this.selected)
         }
     },
     created() {
-        if(localStorage.length > 0) {
-            for (var i = 0; i< localStorage.length; i++){
-                this.todoItems.push(localStorage.key(i));
-            }
-        }
+        this.options = this.propsdata
+        this.selected = this.options[0].name
+        this.getSelectedApartment();
+        
     },
     data() {
         return {
-            selected:''
+            selected:'',
+            options: []
         }
     }
 }
